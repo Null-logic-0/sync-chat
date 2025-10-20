@@ -1,3 +1,13 @@
 Rails.application.routes.draw do
-  get "up" => "rails/health#show", as: :rails_health_check
+  # Global errors
+  match "/404", to: "errors#not_found", via: :all
+  match "/500", to: "errors#internal_server_error", via: :all
+
+  resources :users, only: [ :new, :create, :show ]
+  get "signup", to: "users#new", as: "signup"
+  get "profile", to: "users#profile", as: "profile"
+
+  resources :sessions, only: [ :new, :create, :destroy ]
+  get "login", to: "sessions#new", as: "login"
+  delete "logout", to: "sessions#destroy", as: "logout"
 end
