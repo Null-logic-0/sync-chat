@@ -2,6 +2,7 @@
 @import "flash.css";
 @import "errors.css";
 @import "image-uploader.css";
+@import "dropdown.css";
 
 
 body {
@@ -18,3 +19,54 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
+
+.profile-image img {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-image-big img {
+    width: 6rem;
+    height: 6rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.logout-button {
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #732640;
+    transition: all 0.3s ease-in-out;
+}
+
+.logout-button:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    background: #f8b9ce;
+}
+
+.main-button {
+    background: #f8b9ce;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #732640;
+    transition: all 0.3s ease-in-out;
+}
+
+.main-button:hover {
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+}
+

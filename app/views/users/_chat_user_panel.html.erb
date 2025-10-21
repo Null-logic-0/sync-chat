@@ -1,0 +1,16 @@
+<div class="flex justify-between border-b-2 border-[#e9e9ed] items-center w-full p-2">
+  <div class="flex gap-2 items-center w-full hover:bg-[#e9e9ed] p-2 cursor-pointer rounded-lg">
+    <div class="profile-image">
+      <% if current_user&.profile_image&.attached? %>
+        <%= profile_image(current_user, small: true) %>
+      <% end %>
+    </div>
+    <h2 class="text-[#393946] text-lg font-bold">
+      <%= link_to profile_path do %>
+        <%= current_user&.name %>
+        <%= current_user&.lastname %>
+      <% end %>
+    </h2>
+  </div>
+  <%= render "logout_button" %>
+</div>

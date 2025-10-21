@@ -66,37 +66,4 @@
     box-shadow: 0 0 0 3px rgba(248, 185, 206, 0.4);
 }
 
-.submit-button {
-    background: #f8b9ce;
-    border: none;
-    padding: 12px;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    color: #732640;
-    transition: all 0.3s ease-in-out;
-}
 
-.submit-button:hover {
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
-}
-
-.logout-button {
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: 500;
-    cursor: pointer;
-    color: #732640;
-    transition: all 0.3s ease-in-out;
-}
-
-.logout-button:hover {
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.15);
-    transform: translateY(-2px);
-    background: #f8b9ce;
-}

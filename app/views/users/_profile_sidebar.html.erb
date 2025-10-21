@@ -1,0 +1,54 @@
+<!-- Profile Aside -->
+<aside
+  data-profile-target="profile"
+  class="fixed inset-y-0 right-0 z-50 bg-white border-l-2 border-[#e9e9ed] transform translate-x-full transition-transform duration-300 ease-in-out md:relative md:translate-x-0 flex flex-col gap-6 p-4 items-center w-72">
+
+  <!-- Close Button (only on mobile) -->
+  <button
+    data-action="click->profile#close"
+    class="absolute top-4 left-4 md:hidden w-8 h-8 rounded-full bg-[#f8b9ce] text-[#732640] text-lg flex items-center justify-center shadow-md hover:bg-[#f4a3b9] transition">
+    <i class="fa-solid fa-xmark"></i>
+  </button>
+
+  <div class="flex flex-col gap-4 items-center pt-10">
+    <div class="profile-image-big">
+      <% if current_user&.profile_image&.attached? %>
+        <%= profile_image(current_user, small: false) %>
+      <% end %>
+    </div>
+    <h2 class="text-[#393946] text-2xl font-bold text-center">
+      <%= current_user&.name %>
+      <%= current_user&.lastname %>
+    </h2>
+  </div>
+
+  <div class="p-4 bg-[#f4f4f5] pt-2 rounded-lg shadow w-full">
+    <h3 class="text-[#393946] pb-2 text-lg font-bold">
+      <i class="fa-solid fa-circle-info"></i>
+      About
+    </h3>
+
+    <p class="text-[#9c9ca6] text-sm">
+      Living life one message at a time ✨
+    </p>
+  </div>
+
+  <div class="p-4 w-full bg-[#f4f4f5] rounded-lg shadow">
+    <h3 class="text-[#393946] pb-2 text-lg font-bold">
+      Contact Information
+    </h3>
+    <div class="flex gap-2 text-[#9c9ca6] text-sm items-center">
+      <i class="fa-solid fa-envelope"></i>
+      <a>
+        sarah.johnson@example.com
+      </a>
+    </div>
+  </div>
+</aside>
+
+<!-- Backdrop -->
+<div
+  data-profile-target="backdrop"
+  data-action="click->profile#close"
+  class="fixed inset-0 bg-black/30 backdrop-blur-sm hidden md:hidden z-40 transition-opacity duration-300 ease-in-out opacity-0"></div>
+

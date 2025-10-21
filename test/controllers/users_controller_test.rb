@@ -7,6 +7,12 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     @password = "password1234"
   end
 
+  test "should get index" do
+    log_in_as(@user)
+    get root_path
+    assert_response :success
+  end
+
   # --GET /signup
   test "should get new (signup) page" do
     get signup_path
