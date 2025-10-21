@@ -1,6 +1,7 @@
 @import "form.css";
 @import "flash.css";
 @import "errors.css";
+@import "image-uploader.css";
 
 
 body {
@@ -8,3 +9,12 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
+.wrapper {
+    background: #ffffff;
+    border: 1px solid #e9e9ed;
+    border-radius: 12px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}

@@ -1,0 +1,29 @@
+<div class="main-wrapper max-w-[400px] mx-auto">
+  <div class="flex items-center my-4 gap-4 justify-start w-full">
+    <div class="text-xl text-[#393946] cursor-pointer border-0 bg-transparent">
+      <%= link_to profile_path do %>
+        <i class="fa-solid fa-arrow-left"></i>
+      <% end %>
+    </div>
+    <h1 class="text-3xl text-[#393946] font-bold">
+      Settings
+    </h1>
+
+  </div>
+
+  <div class="wrapper flex flex-col  p-2">
+    <%= render "update_password" %>
+    <hr class="border border-b-gray-400"/>
+    <div class="flex justify-center items-center">
+      <%= button_to "Delete Account",
+                    delete_account_path,
+                    method: :delete,
+                    data: { turbo_confirm: "Are you sure you want to delete your account?" },
+                    class: "bg-red-600 my-4 w-15 hover:bg-red-700 text-white font-bold p-3 rounded-xl transition" %>
+
+    </div>
+
+
+  </div>
+</div>
+

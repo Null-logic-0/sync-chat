@@ -1,0 +1,30 @@
+<div data-controller="image-uploader" class="flex justify-center items-center">
+
+  <div class="drop-zone relative" data-image-uploader-target="dropZone">
+    <% if object.persisted? && object.public_send(field_name).attached? %>
+
+      <img src="<%= url_for(object.public_send(field_name)) %>"
+           class="preview-image" alt="preview">
+    <% else %>
+
+      <%= render "default_avatar", user: @user %>
+
+
+    <% end %>
+    <button type="button" class="absolute cursor-pointer bottom-0 -right-3  flex justify-center items-center bg-[#f4cdda] text-[#732640] text-sm rounded-full p-2 w-10 h-10 border border-white transition-opacity duration-200">
+      <i class="fa-solid fa-camera"></i>
+    </button>
+  </div>
+
+
+  <div data-image-uploader-target="preview"></div>
+
+
+  <%= form.file_field field_name,
+                      data: { image_uploader_target: "fileInput" },
+                      style: "display:none" %>
+
+  <% if object.errors[field_name].any? %>
+    <div class="field-error"><%= object.errors[field_name].first %></div>
+  <% end %>
+</div>

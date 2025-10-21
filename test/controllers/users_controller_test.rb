@@ -19,8 +19,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_difference "User.count", 1 do
       post users_path, params: {
         user: {
-          name: "john",
-          lastname: "doe",
+          name: "John",
+          lastname: "Doe",
           email: "new@example.com",
           password: "password1234",
           password_confirmation: "password1234"
@@ -50,11 +50,49 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get profile_path
     assert_response :success
-    assert_select "h1", text: @user.name
+    assert_select "h1", text: "Profile"
   end
 
   test "should redirect profile when not logged in" do
     get profile_path
     assert_redirected_to login_path
+  end
+
+  # --- PATCH /profile ---
+  test "should update user profile" do
+    log_in_as(@user)
+    patch profile_path, params: { user: {
+      name: "updated name"
+    } }
+    assert_redirected_to profile_path
+    @user.reload
+    assert_equal "Updated name", @user.name
+  end
+
+  # --- GET /settings ---
+  test "should get settings page" do
+    log_in_as(@user)
+    get settings_path
+    assert_response :success
+  end
+
+  # --- PATCH /settings ---
+  test "should update user password" do
+    log_in_as(@user)
+    patch update_password_path, params: { user: {
+      current_password: "password1234",
+      password: "password12345",
+      password_confirmation: "password12345"
+    } }
+    assert_redirected_to login_path
+    assert_match /Your password has been reset./i, flash[:notice]
+  end
+
+  # --- DELETE /settings ---
+  test "should delete account" do
+    log_in_as(@user)
+    delete delete_account_path
+    assert_redirected_to signup_path
+    assert_match /Your account has been deleted./i, flash[:alert]
   end
 end

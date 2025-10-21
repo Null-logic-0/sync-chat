@@ -1,0 +1,41 @@
+<%= form_with(model: @user, url: profile_path, method: :patch, data: { turbo_stream: true }, class: "form") do |f| %>
+
+  <%= render "image_uploader",
+             form: f,
+             object: @user,
+             field_name: :profile_image %>
+
+  <div class="flex items-center gap-2">
+    <div class="flex flex-col gap-2 w-full">
+      <%= f.label :name, class: 'label' %>
+      <%= f.text_field :name, autofocus: true, class: "input", placeholder: "John" %>
+      <% if @user.errors[:name].any? %>
+        <div class="field-error"><%= @user.errors[:name].first %></div>
+      <% end %>
+    </div>
+
+    <div class="flex flex-col gap-2 w-full">
+      <%= f.label :lastname, class: 'label' %>
+      <%= f.text_field :lastname, class: "input", placeholder: "Doe" %>
+      <% if @user.errors[:lastname].any? %>
+        <div class="field-error"><%= @user.errors[:lastname].first %></div>
+      <% end %>
+    </div>
+  </div>
+
+  <%= f.label :about, class: "label" %>
+  <%= f.text_area :about, placeholder: "Say something about yourself...", class: "input" %>
+
+
+
+  <%= f.label :email, class: "label" %>
+  <%= f.email_field :email, class: "input text-gray-500 cursor-not-allowed", disabled: true %>
+  <p class="text-[#797986] text-xs">Email cannot be changed</p>
+
+
+
+  <button type="submit" class="submit-button mt-4">
+    Update Profile
+  </button>
+
+<% end %>

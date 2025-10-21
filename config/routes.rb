@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   resources :users, only: [ :new, :create, :show ]
   get "signup", to: "users#new", as: "signup"
   get "profile", to: "users#profile", as: "profile"
+  patch "profile", to: "users#update_profile", as: "update"
+  get "settings", to: "users#settings", as: "settings"
+  patch "settings", to: "users#update_password", as: "update_password"
+  delete "settings", to: "users#delete_account", as: "delete_account"
 
   resources :sessions, only: [ :new, :create, :destroy ]
   get "login", to: "sessions#new", as: "login"
