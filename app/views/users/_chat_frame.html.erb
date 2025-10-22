@@ -1,0 +1,86 @@
+<% if @selected_chat %>
+  <% other_user = @selected_chat.sender == current_user ? @selected_chat.recipient : @selected_chat.sender %>
+
+  <%= turbo_frame_tag "chat_frame" do %>
+    <%= turbo_stream_from [@selected_chat, current_user] %>
+
+
+    <div class="grid grid-cols-1 md:grid-cols-[1fr_auto] w-full">
+      <section class="grid grid-rows-[89px_1fr_89px] w-full">
+        <!-- Header -->
+        <header class="bg-white border-b-2 border-[#e9e9ed] p-4 flex justify-between items-center">
+          <button
+            data-action="click->menu#open"
+            class="w-10 h-10 rounded-lg text-[#732640] text-lg md:hidden cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-0.5 hover:bg-[#f8b9ce] mr-4">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          <div class="flex gap-2 items-center">
+            <div class="profile-image">
+              <% if other_user&.profile_image&.attached? %>
+                <%= profile_image(other_user, small: true) %>
+              <% end %>
+            </div>
+            <div>
+              <h2 class="text-[#393946] text-lg font-bold">
+                <%= other_user.name %> <%= other_user.lastname %>
+              </h2>
+
+              <% if other_user.online? %>
+                <p class="text-sm text-green-600 animate-pulse font-medium">
+                  <i class="fa-solid fa-circle"></i>
+                  Active now
+                </p>
+              <% else %>
+                <p class="text-sm text-red-600 font-medium">
+                  <i class="fa-solid fa-circle"></i>
+                 Offline
+                </p>
+              <% end %>
+
+
+            </div>
+          </div>
+          <button
+            data-action="click->profile#open"
+            class="w-10 h-10 rounded-lg text-[#732640] text-lg md:hidden cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-0.5 hover:bg-[#f8b9ce] mr-4">
+            <i class="fa-solid fa-circle-info"></i>
+          </button>
+        </header>
+
+        <!-- Messages -->
+        <main id="chat_messages"
+              class="bg-white p-4 flex flex-col gap-4 h-[80vh] w-full overflow-y-auto">
+          <% @chat_messages.each do |chat_message| %>
+            <%= render "chats/message", chat_message: chat_message %>
+          <% end %>
+        </main>
+
+        <!-- Input -->
+        <footer class="bg-white border-t-2 border-[#e9e9ed] sticky bottom-0 w-full p-4">
+          <%= turbo_frame_tag "new_chat_message" do %>
+            <%= form_with model: [@selected_chat, ChatMessage.new],
+                          data: {
+                            turbo_stream: true,
+                            turbo_action: "append",
+                            controller: "chat-form",
+                            action: "turbo:submit-end->chat-form#clear"
+                          },
+                          class: "flex gap-4 items-center" do |f| %>
+              <%= f.text_field :content,
+                               autofocus: true,
+                               class: "input flex-1 border rounded-lg p-2",
+                               data: { "chat-form-target": "input" },
+                               placeholder: "Type a message..." %>
+              <button type="submit"
+                      class="w-10 h-10 rounded-lg text-[#732640] text-lg cursor-pointer hover:shadow-lg hover:-translate-y-0.5 bg-[#f8b9ce] hover:bg-[#f8b7ce]">
+                <i class="fa-regular fa-paper-plane"></i>
+              </button>
+            <% end %>
+          <% end %>
+        </footer>
+      </section>
+
+      <%= render "users/profile_sidebar", other_user: other_user %>
+    </div>
+  <% end %>
+<% end %>

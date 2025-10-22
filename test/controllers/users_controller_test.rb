@@ -33,7 +33,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
         }
       }
     end
-    assert_redirected_to profile_path
+    assert_redirected_to root_path
     follow_redirect!
     assert_match "Thank you for signing up!", response.body
   end

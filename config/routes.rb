@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   match "/404", to: "errors#not_found", via: :all
   match "/500", to: "errors#internal_server_error", via: :all
 
-  resources :users, only: [ :new, :create, :show ]
+  resources :users, only: [ :create ]
   get "signup", to: "users#new", as: "signup"
   get "profile", to: "users#profile", as: "profile"
   patch "profile", to: "users#update_profile", as: "update"
@@ -15,4 +15,9 @@ Rails.application.routes.draw do
   resources :sessions, only: [ :new, :create, :destroy ]
   get "login", to: "sessions#new", as: "login"
   delete "logout", to: "sessions#destroy", as: "logout"
+
+  resources :chats, only: [] do
+    post :start, on: :collection
+    resources :chat_messages, only: [ :create ]
+  end
 end

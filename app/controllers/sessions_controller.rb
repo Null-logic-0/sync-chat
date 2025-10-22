@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
 
     if user&.authenticate(user_params[:password])
       create_session_for(user)
-      redirect_to profile_path, notice: "Welcome back, #{user&.name}!"
+      redirect_to root_path, notice: "Welcome back, #{user&.name}!"
     else
       flash.now[:alert] = "Invalid email or password"
       render "new", status: :unauthorized

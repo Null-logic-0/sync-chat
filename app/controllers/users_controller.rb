@@ -4,7 +4,34 @@ class UsersController < ApplicationController
   before_action :redirect_if_logged_in, only: [ :new, :create ]
 
   def index
-    @users = User.order(created_at: :desc)
+    @chats = Chat.where(sender: current_user)
+                 .or(Chat.where(recipient: current_user))
+                 .includes(:chat_messages)
+
+    @chats_by_user = @chats.index_by do |chat|
+      chat.sender == current_user ? chat.recipient_id : chat.sender_id
+    end
+
+    @users = if params[:query].present?
+               User.where("LOWER(name) LIKE ?", "%#{params[:query].downcase}%")
+    else
+               User.where.not(id: current_user&.id).order(created_at: :desc)
+    end
+
+    if params[:recipient_id]
+      recipient = User.find(params[:recipient_id])
+      @selected_chat = Chat.find_by(sender: current_user, recipient: recipient) ||
+                       Chat.find_by(sender: recipient, recipient: current_user)
+      @selected_chat ||= Chat.create(sender: current_user, recipient: recipient)
+
+      @chat_messages = @selected_chat.chat_messages.includes(:user).order(created_at: :asc)
+      @chat_message = ChatMessage.new
+    end
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def new
@@ -22,7 +49,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       create_session_for(@user)
-      redirect_to profile_path, notice: "Thank you for signing up!"
+      redirect_to root_path, notice: "Thank you for signing up!"
     else
       flash.now[:alert] = @user.errors.full_messages
       render "new", status: :unprocessable_entity

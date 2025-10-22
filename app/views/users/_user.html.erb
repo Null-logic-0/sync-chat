@@ -1,18 +1,30 @@
-<div class="flex justify-between items-center w-full p-2 hover:bg-[#f9f9fb] rounded-xl cursor-pointer transition">
-  <div class="flex items-center gap-3">
-    <div class="profile-image">
-      <%= render "default_avatar", user: current_user, small: true %>
-    </div>
+<div class="flex  items-center w-full p-2 hover:bg-[#f9f9fb] rounded-xl cursor-pointer transition">
 
-    <div class="flex flex-col">
-      <h3 class="text-sm text-[#393946] font-bold truncate max-w-[150px]">
-        Sarah Johnson
-      </h3>
-      <p class="text-xs text-gray-500 truncate max-w-[200px]">
-        See you tomorrow!
-      </p>
-    </div>
-  </div>
+  <%= turbo_frame_tag "chat_frame" do %>
+
+    <%= button_to start_chats_path(recipient_id: user.id),
+                  method: :post,
+                  data: { turbo_frame: "chat_frame" },
+                  form: { data: { turbo_frame: "chat_frame" } },
+                  class: "flex shrink-0 gap-2 items-center" do %>
+      <div class="profile-image">
+        <% if user.profile_image&.attached? %>
+          <%= profile_image(user, small: true) %>
+        <% end %>
+      </div>
+
+      <div class="flex  flex-col">
+        <h3 class="text-sm text-[#393946]  font-bold">
+          <%= user.name %>
+        </h3>
+        <p class="text-xs text-[#9f566f] font-bold">
+          <%= truncate("See you tomorrow!", length: 10) %>
+        </p>
+      </div>
+
+    <% end %>
+  <% end %>
+
 
   <div class="flex flex-col relative items-end w-full">
     <%= render "shared/dropdown" do %>
@@ -22,6 +34,6 @@
         <% end %>
       </li>
     <% end %>
-    <span class="text-xs text-gray-400">2min ago</span>
+    <span class="text-xs text-gray-400">2m ago</span>
   </div>
 </div>

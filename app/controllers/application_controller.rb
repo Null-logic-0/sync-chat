@@ -2,15 +2,18 @@ class ApplicationController < ActionController::Base
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   allow_browser versions: :modern
 
-  # Handle record not found globally
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-  # Handle other errors
   rescue_from StandardError, with: :render_internal_error unless Rails.env.development?
 
   helper_method :current_user
   before_action :require_login
+  before_action :update_last_seen
 
   private
+
+  def update_last_seen
+    current_user&.touch_last_seen!
+  end
 
   def create_session_for(user)
     reset_session
@@ -20,7 +23,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     if session[:user_id] && session[:expires_at] && Time.current <= session[:expires_at]
-      @current_user ||= User.find(session[:user_id])
+      @current_user ||= User.find_by(id: session[:user_id])
     else
       reset_session
       nil

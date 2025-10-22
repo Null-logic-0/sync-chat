@@ -3,80 +3,37 @@
     data-controller="profile"
     class="grid grid-cols-1 md:grid-cols-[288px_1fr_auto] h-screen w-full">
 
-    <%= render "users/users_sidebar" %>
 
-    <section
-      class="grid grid-rows-[89px_1fr_89px]  w-full">
-      <header class="bg-[#ffffff] border-b-2 border-[#e9e9ed] p-4 flex justify-between items-center w-full">
-        <div class="flex items-center gap-2">
-          <button
-            data-action="click->menu#open"
-            class="w-10 h-10 rounded-lg text-[#732640] text-lg md:hidden cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-0.5 hover:bg-[#f8b9ce] mr-4">
-            <i class="fa-solid fa-bars"></i>
-          </button>
+    <%= render 'users/users_sidebar' %>
+
+
+
+
+    <%= turbo_frame_tag "chat_frame" do %>
+      <div class="flex justify-between md:hidden border-b-2 border-[#e9e9ed] items-center w-full p-2">
+        <button
+          data-action="click->menu#open"
+          class="w-10 h-10 rounded-lg text-[#732640] text-lg md:hidden cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-0.5 hover:bg-[#f8b9ce] mr-4">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="flex gap-2 items-center w-full hover:bg-[#e9e9ed] p-2 cursor-pointer rounded-lg">
           <div class="profile-image">
             <% if current_user&.profile_image&.attached? %>
               <%= profile_image(current_user, small: true) %>
             <% end %>
           </div>
-          <div>
-            <h2 class="text-[#393946] text-lg font-bold">
+          <h2 class="text-[#393946] text-lg font-bold">
+            <%= link_to profile_path do %>
               <%= current_user&.name %>
               <%= current_user&.lastname %>
-            </h2>
-            <p class="text-sm text-green-600 animate-pulse font-medium">
-              <i class="fa-solid fa-circle"></i>
-              Active now
-            </p>
-          </div>
+            <% end %>
+          </h2>
         </div>
+        <%= render "users/logout_button" %>
+      </div>
+      <p class="text-center text-xl font-bold mt-[20vh] text-gray-400">Select a user to start chatting</p>
+    <% end %>
 
-        <button
-          data-action="click->profile#open"
-          class="w-10 h-10 rounded-lg text-[#732640] md:hidden text-lg cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-0.5 hover:bg-[#f8b9ce] mr-4">
-          <i class="fa-solid fa-circle-info"></i>
-        </button>
-      </header>
 
-      <main class="bg-[#ffffff] p-4 flex flex-col gap-4  h-screen   w-full overflow-y-auto">
-
-        <!-- Other user message (left) -->
-        <div class="flex justify-start">
-          <div class="bg-[#f4f4f5] text-[#393946] rounded-lg max-w-xs w-full p-3">
-            <p class="text-sm">Hey! How are you doing?</p>
-            <p class="text-xs pt-2 flex items-center justify-between">
-              <span class="font-bold">John Doe</span>
-              <span>10:35 AM</span>
-            </p>
-          </div>
-        </div>
-
-        <!-- Current user message (right) -->
-        <div class="flex justify-end">
-          <div class="bg-[#f8b9ce] text-[#90465f]  rounded-lg max-w-xs w-full p-3">
-            <p class="text-sm">Hi! I'm doing great, thanks for asking! How about you?</p>
-            <p class="text-xs pt-2 flex items-center justify-between">
-              <span>10:36 AM</span>
-              <span class="font-bold">Mark Doe</span>
-
-            </p>
-          </div>
-        </div>
-
-      </main>
-
-      <footer class="bg-[#ffffff] border-t-2 border-[#e9e9ed]  bottom-0 sticky w-full p-4">
-        <%= form_with class: "flex gap-4 items-center" do |f| %>
-          <%= f.text_field :message, autofocus: true, class: "input", placeholder: "Type a message..." %>
-          <button
-            class="w-10 h-10 rounded-lg text-[#732640] text-lg cursor-pointer transition-all duration-300 ease-in-out hover:shadow-lg hover:-translate-y-0.5 bg-[#f8b9ce] hover:bg-[#f8b7ce]">
-            <i class="fa-regular fa-paper-plane"></i>
-          </button>
-        <% end %>
-
-      </footer>
-    </section>
-
-    <%= render "users/profile_sidebar" %>
   </main>
 </div>

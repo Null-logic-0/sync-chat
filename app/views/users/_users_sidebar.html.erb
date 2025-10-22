@@ -3,20 +3,66 @@
   data-menu-target="menu"
   class="fixed inset-y-0 left-0 z-50 bg-white border-r-2 border-[#e9e9ed] transform -translate-x-full transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:flex md:flex-col w-72">
 
-  <%= render "chat_user_panel" %>
+  <%= render "users/chat_user_panel" %>
 
-  <%= form_with class: "flex items-center justify-end border-b-2 border-[#e9e9ed] relative p-4" do |f| %>
-    <%= f.text_field :search, placeholder: "Search...", class: "input" %>
+  <%= form_with url: root_path, method: :get,
+                data: { controller: "search", search_delay_value: 300 },
+                class: "flex items-center justify-end border-b-2 border-[#e9e9ed] relative p-4" do |f| %>
+    <%= f.text_field :query,
+                     value: params[:query],
+                     data: { search_target: "input" },
+                     placeholder: "Search...",
+                     class: "input" %>
     <p class="absolute text-[#797986] pr-2 right-4">
       <i class="fa-solid fa-magnifying-glass"></i>
     </p>
   <% end %>
 
-  <div class="flex flex-col h-screen w-full overflow-y-auto">
-    <% 30.times do %>
-      <%= render "users/user" %>
+  <div id="users" class="flex flex-col h-screen w-full overflow-y-auto">
+    <% @users.each do |user| %>
+      <% chat = @chats_by_user[user.id] %>
+      <% last_message = chat&.chat_messages&.last %>
+
+      <div
+        class="flex items-center justify-between w-full p-2 hover:bg-[#f9f9fb] rounded-xl cursor-pointer transition">
+        <%= button_to start_chats_path(recipient_id: user.id),
+                      method: :post,
+                      form: { data: { turbo_frame: "chat_frame" } },
+                      class: "flex shrink-0 gap-2 items-center w-full" do %>
+          <div class="profile-image">
+            <% if user.profile_image&.attached? %>
+              <%= profile_image(user, small: true) %>
+            <% end %>
+          </div>
+
+          <div class="flex items-start flex-col">
+            <h3 class="text-sm text-[#393946]  font-bold">
+              <%= user.name %>
+            </h3>
+            <p class="text-xs text-[#9f566f] font-bold">
+              <% if last_message %>
+                <%= truncate(last_message.content, length: 10) %>
+              <% else %>
+                No messages yet
+              <% end %>
+            </p>
+          </div>
+        <% end %>
+
+
+        <span class="text-xs text-gray-400">
+          <% if last_message %>
+            <%= time_ago_in_words(last_message.created_at) %> ago
+          <% end %>
+        </span>
+
+
+      </div>
     <% end %>
+
   </div>
+
+
 </aside>
 
 <!-- Backdrop -->

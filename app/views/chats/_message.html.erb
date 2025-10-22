@@ -1,0 +1,21 @@
+<% if chat_message&.user == current_user %>
+  <div class="flex justify-end">
+    <div class="bg-[#f8b9ce] text-[#90465f] rounded-lg max-w-xs w-full p-3">
+      <p class="text-sm"><%= chat_message&.content %></p>
+      <p class="text-xs pt-2 flex items-center justify-between">
+        <span><%= chat_message&.created_at&.strftime("%I:%M %p") %></span>
+        <span class="font-bold"><%= chat_message&.user&.name %></span>
+      </p>
+    </div>
+  </div>
+<% else %>
+  <div class="flex justify-start">
+    <div class="bg-[#f4f4f5] text-[#393946] rounded-lg max-w-xs w-full p-3">
+      <p class="text-sm"><%= chat_message&.content %></p>
+      <p class="text-xs pt-2 flex items-center justify-between">
+        <span class="font-bold"><%= chat_message&.user&.name %></span>
+        <span><%= chat_message&.created_at&.strftime("%I:%M %p") %></span>
+      </p>
+    </div>
+  </div>
+<% end %>

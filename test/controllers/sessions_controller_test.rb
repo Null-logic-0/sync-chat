@@ -15,7 +15,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
   # POST /sessions - successful login
   test "should log in with valid credentials" do
     post sessions_path, params: { user: { email: @user.email, password: @password } }
-    assert_redirected_to profile_path
+    assert_redirected_to root_path
     follow_redirect!
     assert_response :success
     assert_equal @user.id, session[:user_id]

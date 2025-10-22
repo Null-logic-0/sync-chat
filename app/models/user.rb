@@ -4,6 +4,8 @@ class User < ApplicationRecord
   before_save :normalize_fields
 
   has_one_attached :profile_image, dependent: :destroy
+  has_many :chat_messages, dependent: :destroy
+  has_many :chat_messages, dependent: :destroy
 
   # User validation
   validates :name, presence: true
@@ -14,6 +16,14 @@ class User < ApplicationRecord
             uniqueness: { case_sensitive: false }
   validates :password, length: { minimum: 10, allow_blank: true }
   validate :acceptable_image
+
+  def touch_last_seen!
+    update_column(:last_seen_at, Time.current)
+  end
+
+  def online?
+    last_seen_at && last_seen_at > 5.minutes.ago
+  end
 
   private
 
