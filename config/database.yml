@@ -27,7 +27,11 @@ production:
     <<: *default
     database: realbid_7pfa
     username: realbid_7pfa_user
+    host: dpg-d3qda9vdiees73aa3jc0-a
     password: <%= ENV["SYNC_CHAT_DATABASE_PASSWORD"] %>
+    port: 5432
+    sslmode: require
+
   cache:
     <<: *primary_production
     database: realbid_7pfa
