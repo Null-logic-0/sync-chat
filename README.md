@@ -5,7 +5,11 @@
 Sync-Chat is a real-time chat web application built with Rails 8 and Hotwire, providing seamless, responsive messaging
 with modern web technologies.
 
-[1023.mp4](../1023.mp4)
+
+
+https://github.com/user-attachments/assets/be6e03ef-f417-4d21-b036-dc69145e004b
+
+
 
 # Features
 
