@@ -1,24 +1,78 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Sync-Chat
 
-Things you may want to cover:
+Sync-Chat is a real-time chat web application built with Rails 8 and Hotwire, providing seamless, responsive messaging
+with modern web technologies.
 
-* Ruby version
+[1023.mp4](../1023.mp4)
 
-* System dependencies
+# Features
 
-* Configuration
+Real-time messaging with Turbo Streams
 
-* Database creation
+User authentication and profile management
 
-* Database initialization
+Profile image uploads stored in AWS S3
 
-* How to run the test suite
+Postgres as the database for reliability and scalability
 
-* Services (job queues, cache servers, search engines, etc.)
+Dockerized development environment for easy setup
 
-* Deployment instructions
+# Tech Stack
 
-* ...
+Backend: Ruby on Rails 8
+
+Frontend: Hotwire (Turbo + Stimulus)
+
+Database: Postgres
+
+File Storage: AWS S3 (profile images)
+
+Development Environment: Docker (only for dev)
+
+# Installation
+
+Ruby >= 3.x
+
+Rails 8
+
+Postgres
+
+Docker (for dev environment only)
+
+# Setup
+
+Clone the repository:
+
+    git clone https://github.com/your-username/sync-chat.git
+    cd sync-chat
+
+Install dependencies:
+
+    bundle install
+
+Configure database:
+
+    rails db:create db:migrate
+
+Start the Rails server:
+
+    rails server
+
+For development with Docker:
+
+    bin/docker-dev up
+
+# Usage
+
+Register a new account or log in
+
+Upload your profile image
+
+Start chatting in real-time with other users
+
+# License
+
+Apache License 2.0
+

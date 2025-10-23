@@ -2,11 +2,17 @@ one:
   name: John
   lastname: Doe
   email: user1@example.com
-  password_digest: <%= BCrypt::Password.create("password1234") %>
+  password_digest: <%= BCrypt::Password.create("password1234", cost: BCrypt::Engine::MIN_COST) %>
 
 two:
   name: Mark
   lastname: Doe
   email: user2@example.com
-  password_digest: <%= BCrypt::Password.create("password1234") %>
+  password_digest: <%= BCrypt::Password.create("password1234", cost: BCrypt::Engine::MIN_COST) %>
 
+
+three:
+  name: Bob
+  lastname: Brown
+  email: bob@example.com
+  password_digest: <%= BCrypt::Password.create("password1234", cost: BCrypt::Engine::MIN_COST) %>

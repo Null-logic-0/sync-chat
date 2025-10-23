@@ -3,6 +3,8 @@ require "open-uri"
 puts "🌱 Seeding database..."
 
 User.destroy_all
+ChatMessage.destroy_all
+Chat.destroy_all
 
 puts "🧹 Old records cleared!"
 

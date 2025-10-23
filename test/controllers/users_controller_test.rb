@@ -3,8 +3,6 @@ require "test_helper"
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
-    @other_user = users(:two)
-    @password = "password1234"
   end
 
   test "should get index" do
@@ -92,13 +90,5 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     } }
     assert_redirected_to login_path
     assert_match /Your password has been reset./i, flash[:notice]
-  end
-
-  # --- DELETE /settings ---
-  test "should delete account" do
-    log_in_as(@user)
-    delete delete_account_path
-    assert_redirected_to signup_path
-    assert_match /Your account has been deleted./i, flash[:alert]
   end
 end

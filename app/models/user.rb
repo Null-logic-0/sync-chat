@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   has_one_attached :profile_image, dependent: :destroy
   has_many :chat_messages, dependent: :destroy
-  has_many :chat_messages, dependent: :destroy
+  has_many :chats, foreign_key: :sender_id, dependent: :destroy
 
   # User validation
   validates :name, presence: true

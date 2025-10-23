@@ -11,7 +11,7 @@ module ActiveSupport
     fixtures :all
 
     def log_in_as(user)
-      post sessions_path, params: { user: { email: user.email, password: @password } }
+      post sessions_path, params: { user: { email: user.email, password: "password1234" } }
       follow_redirect! if response.redirect?
     end
   end

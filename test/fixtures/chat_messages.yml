@@ -2,8 +2,10 @@
 
 one:
   user: one
-  content: MyText
+  chat: one
+  content: "Hello, this is Alice!"
 
 two:
   user: two
-  content: MyText
+  chat: one
+  content: "Hi Alice!"
