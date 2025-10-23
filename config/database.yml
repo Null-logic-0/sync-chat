@@ -25,18 +25,18 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: sync_chat_production
-    username: sync_chat
+    database: realbid_7pfa
+    username: realbid_7pfa_user
     password: <%= ENV["SYNC_CHAT_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
-    database: sync_chat_production_cache
+    database: realbid_7pfa
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
-    database: sync_chat_production_queue
+    database: realbid_7pfa
     migrations_paths: db/queue_migrate
   cable:
     <<: *primary_production
-    database: sync_chat_production_cable
+    database: realbid_7pfa
     migrations_paths: db/cable_migrate
